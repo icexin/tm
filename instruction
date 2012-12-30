@@ -1,0 +1,23 @@
+// c++ style comment
+
+mov ax,1     // mov reg, const
+mov bx,ax    // mov reg, reg
+mov ax,[bx]  // mov reg, [reg] 
+mov [bx],ax  // mov [reg], reg
+
+label:      // label
+add ax,bx   // add reg, reg
+sub ax,bx   // sub reg, reg
+mul ax,bx   // mul reg, reg
+div ax,bx   // div reg, reg
+
+jmp label1   // jmp label
+je ax,label  // je reg, label  : jump if reg = 0
+jne ax,label // jne reg, label : jump if reg != 0
+jlt ax, label // jlt reg, label : jump if reg < 0
+jle ax, label // jle reg, label : jump if reg <= 0
+jgt ax, label // jgt reg, label : jump if reg > 0
+jge ax, label // jge reg, label : jump if reg >= 0
+
+write ax // write reg
+read ax  // read reg : only number allowed

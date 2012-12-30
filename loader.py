@@ -31,6 +31,9 @@ def t_LABEL(t):
         t.type = 'MATH_OP'
 
     return t
+def t_COMMENT(t):
+    r'//.*'
+    pass
 
 def t_NUM(t):
     r'[0-9]+'
@@ -177,12 +180,15 @@ parser = yacc.yacc(start='insts')
 def label_to_loaction(rom):
     for inst in rom:
         if inst.type == 'jump':
-            if len(inst.args) == 1:
-                label_name = inst.args[0].value
-                inst.args[0].value = label[label_name]
-            else:
-                label_name = inst.args[1].value
-                inst.args[1].value = label[label_name]
+            try:
+                if len(inst.args) == 1:
+                    label_name = inst.args[0].value
+                    inst.args[0].value = label[label_name]
+                else:
+                    label_name = inst.args[1].value
+                    inst.args[1].value = label[label_name]
+            except KeyError:
+                raise SyntaxError("label '{0}' does not exsits".format(label_name))
 
 def load_rom(s):
     rom = parser.parse(s)
